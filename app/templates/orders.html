@@ -1,0 +1,89 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="../images/about-img.png" type="image/x-icon">
+
+  <title>MILCO.</title>
+
+
+ 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+<body class="sub_page">
+
+  <div class="hero_area">
+
+   
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="{% url 'home'%}">
+            <span>
+              <img src="{% static 'images/logo.png' %}" alt="" style="width: 80px; height: 40px;">
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin-up'%}">Home </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'aproductsView' %}">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'aorders' %}">orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'memberListview' %}">Members</a>
+              </li>
+            
+            </ul>
+            
+          </div>
+        </nav>
+      </div>
+    </header>
+  
+  </div>
+
+  <div class="card text-center">
+    <div class="card-header">
+      Mpo kope tshwarelo
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Milco website</h5>
+      <p class="card-text">the page is still under construction...guess what's next :)</p>
+      <a href="#" class="btn btn-danger">contact me</a>
+    </div>
+    <div class="card-footer text-muted">
+    it will be ok in two years
+    </div>
+  </div>
+ 
+
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+ 
+</body>
+{% endblock content %}

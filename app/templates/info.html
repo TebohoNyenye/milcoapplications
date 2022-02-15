@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../images/about-img.png" type="image/x-icon">
+  
+    <title>MILCO.</title>
+  
+  
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+    
+        <table id="dtBasicExample" class="table table-striped " cellspacing="0" width="100%">
+            
+          <thead>
+            <tr class="table-title" style="background: #cf1717 !important; color: #fff; border-radius: 3px 3px 0 0; border:none; margin: -20px -25px 10px;">
+              <th class="th-sm">user id
+              </th>
+              <th class="th-sm">Name
+              </th>
+              
+              <th class="th-sm">Surname
+              </th>
+              <th class="th-sm">username
+              </th>
+      
+              <th class="th-sm">email
+              </th>
+              <th class="th-sm">view
+              </th>
+              <th class="th-sm">approve
+              </th>
+              
+              <th class="th-sm">decline
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for member in members %}
+            <tr>
+              <td>{{member.id}}</td>
+              <td>{{member.first_name}}</td>
+              <td>{{member.last_name}}</td>
+              <td>{{member.username}}</td>
+              <td>{{member.email}}</td>
+              <td><button type="Button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{member.id}}">view</button></td>
+              <td><button class="btn btn-success" id="approve" ><a href="{% url 'activate' member.id %}" style="color: #fff;" >approve</a></button></td>
+              <td><button class="btn btn-danger" id="approve" ><a href="{% url 'activate' member.id %}" style="color: #fff;" >decline</a></button></td>
+        
+             
+            </tr>
+            
+            {% endfor %}
+           
+        </table>
+
+</body>
+
+</html>

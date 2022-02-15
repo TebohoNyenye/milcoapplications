@@ -1,0 +1,256 @@
+
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="../images/about-img.png" type="image/x-icon">
+
+  <title>MILCO.</title>
+
+
+ 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  
+
+</head>
+<body class="sub_page">
+
+  <div class="hero_area">
+
+   
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="{% url 'home'%}">
+            <span>
+              <img src="{% static 'images/logo.png' %}" alt="" style="width: 80px; height: 40px;">
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin-up'%}">Home </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'aproductsView' %}">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'aorders' %}">orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'memberListview' %}">Members</a>
+              </li>
+            
+            </ul>
+       
+          </div>
+        </nav>
+      </div>
+    </header>
+  
+  </div>
+  {% if messages %}
+  <div class="alert alert-dismissible" role="alert">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+<div class="container">
+  
+  <td><button class="btn btn-info" style="margin-left: 970px ;" id="approve" ><a href="{% url  'export_users_csv' %}" style="color: #fff;" >Active Members <i class="fa fa-download" aria-hidden="true"></i></a></button></td>
+  <hr>
+  <table id="dtBasicExample" class="table table-striped " cellspacing="0" width="100%">
+      
+    <thead>
+      <tr class="table-title" style="background: #cf1717 !important; color: #fff; border-radius: 3px 3px 0 0; border:none; margin: -20px -25px 10px;">
+        <th class="th-sm">user id
+        </th>
+        <th class="th-sm">Name
+        </th>
+        
+        <th class="th-sm">Surname
+        </th>
+        <th class="th-sm">username
+        </th>
+
+        <th class="th-sm">email
+        </th>
+        <th class="th-sm">view
+        </th>
+        <th class="th-sm">approve
+        </th>
+        
+        <th class="th-sm">decline
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+      <tr>
+        <td>{{member.user.id}}</td>
+        <td>{{member.user.first_name}}</td>
+        <td>{{member.user.last_name}}</td>
+        <td>{{member.user.username}}</td>
+        <td>{{member.user.email}}</td>
+        <td><button type="Button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{member.user.id}}"><i class="fa fa-eye" aria-hidden="true"></i> view</button></td>
+        <td><button class="btn btn-success" id="approve" ><a href="{% url 'activate' member.user.id %}" style="color: #fff;" ><i class="fa fa-check" aria-hidden="true"></i> approve</a></button></td>
+        <td><button class="btn btn-danger" id="approve" ><a href="{% url 'decline' member.user.id %}" style="color: #fff;" >decline <i class="fa fa-times" aria-hidden="true"></i></a></button></td>
+  
+       
+      </tr>
+      
+      {% endfor %}
+     
+  </table>
+  {% for member in members %}
+ <div class="modal fade right" id="exampleModal{{member.user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header" style="background-color: #cf1717; color:#fff">
+        <p class="heading lead">Member details
+        </p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text" style="color:#fff;">×</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="far fa-file-alt fa-4x mb-3 animated rotateIn"></i>
+          <p>
+            <strong>passport OR ID image</strong>
+           <p class="text-center"><a href="{{member.passport.url}}"><img style="border-radius: 50px; height: 60px; width: 60px;"src="{{member.passport.url}}"/></a></p> 
+          </p>
+          <p>User ID
+            <strong> : {{member.user_id}}</strong>
+          </p>
+        </div>
+
+        <hr>
+
+        <!-- Radio -->
+        <p class="text-center">
+          <strong>User details</strong>
+        </p>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-user" aria-hidden="true" ></i>  Username :</b>
+          <label class="form-check-label" for="radio-179">{{member.user}}</label>
+        </div>
+
+        <div class="form-check mb-4">
+          <b><i class="fa fa-map-marker" aria-hidden="true"></i>  Village :</b>
+          <label class="form-check-label" for="radio-279">{{member.village}}</label>
+        </div>
+
+        <div class="form-check mb-4">
+          <b><i class="fa fa-phone" aria-hidden="true"></i>  Phone :</b>
+          <label class="form-check-label" for="radio-379">{{member.phone}}</label>
+        </div>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-map-marker" aria-hidden="true"></i>  District :</b>
+          <label class="form-check-label" for="radio-479">{{member.district}}</label>
+        </div>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-id-badge" aria-hidden="true"></i>  Passport or ID :</b>
+          <label class="form-check-label" for="radio-579">{{member.passport_number}}</label>
+        </div>
+        <!-- Radio -->
+
+        <p class="text-center">
+          <strong>Bank details</strong>
+        </p>
+       
+        <div class="form-check mb-4">
+          <b><i class="fa fa-user" aria-hidden="true" ></i>Bank Name   :</b>
+          <label class="form-check-label" for="radio-179">{{member.bank}}</label>
+        </div>
+
+        <div class="form-check mb-4">
+          <b><i class="fa fa-map-marker" aria-hidden="true"></i>  Account type :</b>
+          <label class="form-check-label" for="radio-279">{{member.acc_type}}</label>
+        </div>
+
+        <div class="form-check mb-4">
+          <b><i class="fa fa-phone" aria-hidden="true"></i>  Account Number :</b>
+          <label class="form-check-label" for="radio-379">{{member.acc_number}}</label>
+        </div>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-map-marker" aria-hidden="true"></i>  Branch code :</b>
+          <label class="form-check-label" for="radio-479">{{member.branch}}</label>
+        </div>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-id-badge" aria-hidden="true"></i>  saving month :</b>
+          <label class="form-check-label" for="radio-579">{{member.month_save}}</label>
+        </div>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-id-badge" aria-hidden="true"></i>  Saving date :</b>
+          <label class="form-check-label" for="radio-579">{{member.save_date}}</label>
+        </div>
+        <div class="form-check mb-4">
+          <b><i class="fa fa-id-badge" aria-hidden="true"></i>  Proof of payment :</b>
+          <label class="form-check-label" for="radio-579">{{member.proof}}</label>
+        </div>
+
+      </div>
+
+      
+     
+    </div>
+  </div>
+</div>
+  {%endfor %}
+</div>
+
+
+<!-- Modal: modalPoll -->
+
+<!-- Modal: modalPoll -->
+
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script>
+
+    $(document).ready(function () {
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+    });
+ 
+
+    $('#exampleModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+
+  
+
+ </script>
+</body>
+{% endblock content %}
